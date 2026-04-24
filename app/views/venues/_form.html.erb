@@ -26,9 +26,12 @@
     <%= form.text_field :instagram_url %>
   </div>
 
-  <div>
-    <%= form.label :area, style: "display: block" %>
-    <%= form.text_field :area %>
+  <div class="field">
+    <%= form.label :area, "エリア(県名)" %>
+    <%= form.select :area, Venue::AREAS, {include_blank: "選択してください"} %>
+  </div>
+
+    
   </div>
 
   <div>
