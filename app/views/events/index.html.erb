@@ -32,10 +32,23 @@
         <p><%= event.date.strftime("%Y/%m/%d %H:%M") %></p> <!-- 開催日時 -->
         <%# 会場が存在する時だけ表示する%>
         <P><%= event.venue&.name %> (<%= event.venue&.area %>)</p>
-        <p><%= link_to "Show this event", event %></p>
+        <% if event.source_url.include?("instagram.com") %>
+          <blockquote class="instagram-media" data-instgrm-permalink="<%= event.source_url%>" data-instgrm-version="14" style="width: 100%;">
+            <a href="<%= event.source_url %>">読み込み中...</a>
+          </blockquote>
+          
+        <% else %>
+          <img src="<%= event.image %>" style="width: 100%; border-radius: 5px;">
+        <% end %>
+        
+        <div style="margin-top: 10px;">
+          <%= link_to "詳細を見る", event, class: "btm" %>
+        </div>
       </div>
     <% end %>
   </section>
 </div>
+<script async src="//www.instagram.com/embed.js"></script>
 
+<hr>
 <%= link_to "New event", new_event_path %>

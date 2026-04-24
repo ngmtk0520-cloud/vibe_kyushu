@@ -35,8 +35,13 @@
     <%= form.label :genre, "ジャンル" %>
     <%= form.select :genre, Event::GENRES, {include_blank: "選択してください"} %>
   </div>
-    
+
+  <div class="field">
+    <%= form.label :pickup, "注目イベントにする" %>
+    <%= form.checkbox :pickup %>
   </div>
+
+
 
   <div>
     <%= form.submit %>
