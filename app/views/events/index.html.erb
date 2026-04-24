@@ -4,7 +4,12 @@
 
 <div id="events">
   <% @events.each do |event| %>
-    <%= render event %>
+    <div class="event-card" >
+      <span class="genre-tag"><%= event.genre %></span> <!-- ジャンル -->
+      <h3><%= event.title %></h3>
+      <p><%= event.date.strftime("%Y/%m/%d %H:%M") %></p> <!-- 開催日時 -->
+      <P><%= event.venue.name %> (<%= event.venue.area %>)</p>
+
     <p>
       <%= link_to "Show this event", event %>
     </p>
