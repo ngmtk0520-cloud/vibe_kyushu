@@ -3,17 +3,39 @@
 <h1>Events</h1>
 
 <div id="events">
-  <% @events.each do |event| %>
-    <div class="event-card" >
-      <span class="genre-tag"><%= event.genre %></span> <!-- ジャンル -->
-      <h3><%= event.title %></h3>
-      <p><%= event.date.strftime("%Y/%m/%d %H:%M") %></p> <!-- 開催日時 -->
-      <P><%= event.venue.name %> (<%= event.venue.area %>)</p>
+  <%# 今月の注目イベントを表示する %>
+  <section class="pickup">
+    <h2>今月の注目イベント</h2>
+    <% @pickup_events.each do |event|%>
+      <div> 【注目】<%= event.title %></div>
+    <% end %>
+  </section>
 
-    <p>
-      <%= link_to "Show this event", event %>
-    </p>
-  <% end %>
+  <hr>
+
+  <section class="this_month">
+    <h2>今月開催されるイベント</h2>
+    <% @this_month_events.each do |event| %>
+      <p><%= event.date.strftime("%Y/%m/%d %H:%M") %>: <%= event.title %></p>
+    <% end %>
+  </section>
+
+
+  <hr>
+
+  <section class="all-events">
+    <h2>すべてのイベント</h2>
+    <% @events.each do |event| %>
+      <div class="event-card" >
+        <span class="genre-tag"><%= event.genre %></span> <!-- ジャンル -->
+        <h3><%= event.title %></h3>
+        <p><%= event.date.strftime("%Y/%m/%d %H:%M") %></p> <!-- 開催日時 -->
+        <%# 会場が存在する時だけ表示する%>
+        <P><%= event.venue&.name %> (<%= event.venue&.area %>)</p>
+        <p><%= link_to "Show this event", event %></p>
+      </div>
+    <% end %>
+  </section>
 </div>
 
 <%= link_to "New event", new_event_path %>

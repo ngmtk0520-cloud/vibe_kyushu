@@ -4,6 +4,11 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @events = Event.all
+
+    # 今週のイベント（今日から7日後まで）を取得
+    @this_month_events = Event.where(date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_month).order(date: :asc)
+    # 注目イベントを取得
+    @pickup_events = @this_month_events.where(pickup: true)
   end
 
   # GET /events/1 or /events/1.json
