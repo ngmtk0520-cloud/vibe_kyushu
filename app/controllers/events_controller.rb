@@ -3,11 +3,12 @@ class EventsController < ApplicationController
 
   # GET /events or /events.json
   def index
+    @events = Event.all.order(date: :asc)
     active_events = Event.where("date >= ?",Time.current - 3.hours)
 
     # 注目（pickup）」かつ「今月末まで」のもの取得
     @pickup_events = active_events.where(pickup: true).where(date: ..Time.zone.now.end_of_month).order(date: :asc)
-    # 今月末まで」の全イベント（注目以外も含む）
+    # 今月末までの全イベント（注目以外も含む）
     @this_month_events = active_events.where(date: ..Time.zone.now.end_of_month).order(date: :asc)
   end
 

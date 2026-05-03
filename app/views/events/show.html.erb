@@ -1,10 +1,35 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @event %>
+<div class="event-container">
+  <!-- イベントの基本情報 -->
+  <h1><%= @event.title %></h1>
+  <p><strong>開催日時:</strong> <%= @event.start_time.strftime("%Y年%m月%d日 %H:%M") %>
+  <p><strong>会場:</strong> <%= @event.venue.name %></p>
+  <p><strong>ジャンル:</strong> <%= @event.genre %></p>
+  <p><strong>料金:</strong> <%= @event.fee %>円</p>
 
-<div>
-  <%= link_to "Edit this event", edit_event_path(@event) %> |
-  <%= link_to "Back to events", events_path %>
+  <hr>
 
-  <%= button_to "Destroy this event", @event, method: :delete %>
+  <!-- インスタグラムの埋め込み -->
+  <div class="event-visual">
+    <% if @event.source_url.present? && @event.source_url.include?("instagram.com") %>
+      <blockquote class="instagram-media" data-instgrm-permalink="<%= @event.source_url %>" data-instgrm-version="14" >
+      </blockquote>
+      <script async src="//www.instagram.com/embed.js"></script>
+    <% end %>
+  </div>
+
+  <div class="event-description">
+    <h2>イベントの説明</h2>
+    <%= simple_format @event.description %>
+  </div>
+
+  <div class="action">
+    <%= link_to "編集する", edit_event (@event) %>
+    <%= link_to "一覧に戻る", events_path %>
+  </div>
 </div>
+
+
+
+
